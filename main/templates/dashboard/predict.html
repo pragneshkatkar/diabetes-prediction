@@ -1,0 +1,51 @@
+{% extends 'dashboard/sidebar.html' %}
+
+{% block dashboard_content %}
+
+<div class="card">
+	<div class="card-body">
+		<h4>Fill this prediction form</h4>
+		<div class="row">
+			<div class="col-lg-6">
+				<form></form>
+				<label>Pregnancy</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Glucose</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Glucose" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Blood pressure</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Blood pressure" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Skin thickness</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Skin thickness" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Insulin</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Insulin" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>BMI</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="BMI" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Diabetes pedigree function</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Diabetes pedigree function" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<label>Age</label>
+				<div class="mb-3">
+					<input type="text" class="form-control" placeholder="Age" aria-label="Email" aria-describedby="email-addon">
+				</div>
+				<div class="mb-3">
+					<button class="btn btn-primary">Predict</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock dashboard_content %}
