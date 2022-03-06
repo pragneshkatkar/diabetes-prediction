@@ -1,0 +1,50 @@
+{% extends 'dashboard/sidebar.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+
+<div class="card">
+	<a href="admin/doctors-contact/">
+		<button class="btn btn-link d-flex align-items-center">
+			<i class="fa fa-arrow-left text-sm"></i>
+			<a class="mx-2 text-sm">Back</a>
+		</button>
+	</a>
+	<div class="card-body">
+		<h4>{% if '/edit/' in request.path %}Edit{% else %}Add{% endif %} doctor</h4>
+		<div class="row">
+			<div class="col-lg-6">
+				<form id="add-doctor-form">
+					<label>Name</label>
+					<div class="mb-3">
+						<input id="name" type="text" class="form-control" placeholder="Name" aria-label="Email" aria-describedby="email-addon">
+					</div>
+					<label>Degree</label>
+					<div class="mb-3">
+						<input id="degree" type="text" class="form-control" placeholder="Degree" aria-label="Degree" aria-describedby="email-addon">
+					</div>
+					<label>Contact number</label>
+					<div class="mb-3">
+						<input id="contact_number" type="text" class="form-control" placeholder="Contact number" aria-label="Contact number" aria-describedby="email-addon">
+					</div>
+					<label>Email</label>
+					<div class="mb-3">
+						<input id="email" type="text" class="form-control" placeholder="Email" aria-label="Contact number" aria-describedby="email-addon">
+					</div>
+					<div class="form-check form-switch d-flex align-items-center mb-3">
+						<input id="is_active" class="form-check-input" type="checkbox" id="rememberMe"/>
+						<label class="form-check-label mb-0 ms-2" for="rememberMe">Active</label>
+					</div>
+					<div class="mb-3">
+						<button type="submit" class="btn btn-primary">Add</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock dashboard_content %}
+{% block js_files %}
+<script src="{% static '/js/main/doctor.js' %}"></script>
+{% endblock js_files %}

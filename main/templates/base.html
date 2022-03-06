@@ -41,7 +41,28 @@
 		</script>
 		<!-- Github buttons -->
 		<script async defer src="https://buttons.github.io/buttons.js' %}"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
 		<script src="{% static '/js/soft-ui-dashboard.min.js' %}?v=1.0.3"></script>
+        {% block js_files %}{% endblock js_files %}
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+            {% block js_content %}{% endblock js_content %}
+        </script>
     </body>
 </html>

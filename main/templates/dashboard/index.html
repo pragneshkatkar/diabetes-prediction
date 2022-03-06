@@ -1,7 +1,62 @@
 {% extends 'dashboard/sidebar.html' %}
+{% load static %}
 
 {% block dashboard_content %}
 
 <a href="/dashboard/predict"><button class="btn btn-primary">Get a new prediction</button></a>
+
+<div class="card">
+	<table class="table align-items-center mb-0">
+		<thead>
+			<tr>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No. of<br/>Pregnancies</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Glucose</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BP</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Skin thickness</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Insulin</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BMI</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Age</th>
+				<th class="text-secondary opacity-7"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+					<div class="d-flex px-2 py-1">
+						<h6 class="mb-0 text-sm">John Michael</h6>
+					</div>
+				</td>
+				<td>
+					<p class="text-xs text-secondary mb-0">1</p>
+				</td>
+				<td class="align-middle text-center text-sm">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">Test</p>
+				</td>
+				<td class="align-middle text-center">
+					<a href="prediction/"><button class="btn btn-info">Details</button></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 {% endblock dashboard_content %}

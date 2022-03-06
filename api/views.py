@@ -1,3 +1,125 @@
 from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+
+from main.models import Doctor, Prediction
 
 # Create your views here.
+
+@api_view(['POST', 'PUT'])
+def signup_view(request):
+    if request.method == 'POST':
+		# email = request.data['email']
+		# check = User.objects.filter(email=email).exists()
+		# if check:
+		# 	return Response({'message': 'Email already exists'})
+        user = User.objects.create_user(
+            first_name=request.data['first_name'],
+            last_name=request.data['last_name'],
+            email=request.data['email'],
+            password=request.data['password'],
+            username=request.data['username']
+        )
+        user.save()
+        return Response()
+    elif request.method == 'PUT':
+        user = User.objects.get(id=request.data['user_id'])
+        user.first_name = request.data['first_name']
+        user.last_name = request.data['last_name']
+        user.email = request.data['email']
+        user.username = request.data['username']
+        user.save()
+        return Response()
+
+@api_view(['POST'])
+def login_view(request):
+    if request.method == 'POST':
+        print(request.user)
+        response = Response()
+        email = request.data['username']
+        password = request.data['password']
+        username_exists = User.objects.filter(email=email).exists()
+        status = 'Invalid Username'
+        if username_exists:
+            user = authenticate(request, username=email, password=password)
+            if user is not None:
+                login(request, user)
+                # payload = jwt_payload_handler(user)
+                # token = jwt_encode_handler(payload)
+                # response.set_cookie(key='token', value=token, httponly=True)
+                status = 'Successful'
+                # is_mfa_user = EmployeeCompany.objects.filter(user_id=request.user.id).last().is_mfa_user
+                # if not is_mfa_user:
+                request.session['username'] = user.email
+                request.session['user_id'] = user.id
+                response.data = {
+                    'status': status,
+                }
+            else:
+                status = 'Incorrect Password'
+                response.data = {
+                    'status': status,
+                }
+        return response
+
+@api_view(['POST'])
+def predict_view(request):
+    response = Response({'flash': False, 'message': 'Invalid request'})
+    if request.method == 'POST':
+        user_id = request.session['user_id']
+        user = User.objects.get(id=user_id)
+        name = request.data['name']
+        no_of_pregnancies = request.data['no_of_pregnancies']
+        glucose = request.data['glucose']
+        blood_pressure = request.data['blood_pressure']
+        skin_thickness = request.data['skin_thickness']
+        insulin = request.data['insulin']
+        bmi = request.data['bmi']
+        age = request.data['age']
+        # prediction
+        prediction = Prediction.objects.create(
+            user_id=user,
+            name=name,
+            number_of_pregnancies=no_of_pregnancies,
+            glucose=glucose,
+            blood_pressure=blood_pressure,
+            skin_thickness=skin_thickness,
+            insulin=insulin,
+            bmi=bmi,
+            age=age,
+            model1_prediction=False,
+            model2_prediction=False,
+            model3_prediction=False,
+            model4_prediction=False,
+            result=False
+        )
+        prediction.save()
+        response = Response({'flash': True, 'message': 'Prediction added successfully'})
+    return response
+
+
+@api_view(['POST', 'PUT'])
+def doctor_view(request):
+    if request.method == 'POST':
+		# email = request.data['email']
+		# check = User.objects.filter(email=email).exists()
+		# if check:
+		# 	return Response({'message': 'Email already exists'})
+        doctor = Doctor()
+        doctor.name = request.data['name']
+        doctor.email = request.data['email']
+        doctor.contact_number = request.data['contact_number']
+        doctor.is_active = request.data['is_active'] == "on"
+        doctor.save()
+        return Response()
+    elif request.method == 'PUT':
+        doctor = Doctor.objects.get(id=request.data['doctor_id'])
+        doctor.name = request.data['name']
+        doctor.degree = request.data['degree']
+        doctor.contact_number = request.data['contact_number']
+        doctor.email = request.data['email']
+        doctor.is_active = request.data['is_active']
+        doctor.save()
+        return Response()
