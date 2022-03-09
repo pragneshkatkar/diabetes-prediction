@@ -4,6 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 
+from main.models import Prediction
+
 # Create your views here.
 @login_required(login_url='/login/')
 def index_view(request):
@@ -52,8 +54,10 @@ def signup_view(request):
 
 @login_required(login_url='/login/')
 def dashboard_view(request):
+    predictions = Prediction.objects.all().values().order_by('-id')
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'predictions': predictions
     }
     return render(request, 'dashboard/index.html', context)
 

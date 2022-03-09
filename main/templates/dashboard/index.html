@@ -17,44 +17,47 @@
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Insulin</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BMI</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Age</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result</th>
 				<th class="text-secondary opacity-7"></th>
 			</tr>
 		</thead>
 		<tbody>
+			{% for prediction in predictions %}
 			<tr>
 				<td>
 					<div class="d-flex px-2 py-1">
-						<h6 class="mb-0 text-sm">John Michael</h6>
+						<h6 class="mb-0 text-sm">{{ prediction.name }}</h6>
 					</div>
 				</td>
 				<td>
-					<p class="text-xs text-secondary mb-0">1</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.number_of_pregnancies }}</p>
 				</td>
 				<td class="align-middle text-center text-sm">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.glucose }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.blood_pressure }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.skin_thickness }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.insulin }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.bmi }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="text-xs text-secondary mb-0">{{ prediction.age }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<p class="text-xs text-secondary mb-0">Test</p>
+					<p class="{% if prediction.result %}text-danger{% else %}text-success{% endif %} mb-0">{{ prediction.result }}</p>
 				</td>
 				<td class="align-middle text-center">
-					<a href="prediction/"><button class="btn btn-info">Details</button></a>
+					<a href="/dashboard/prediction/{{ prediction.id }}"><button class="btn btn-info">Details</button></a>
 				</td>
 			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

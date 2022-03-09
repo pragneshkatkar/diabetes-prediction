@@ -28,3 +28,10 @@ class Doctor(models.Model):
 	contact_number = models.IntegerField()
 	is_active = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
+
+class UsersAddress(models.Model):
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+	address = models.CharField(max_length=60)
+	city = models.CharField(max_length=60)
+	state = models.CharField(max_length=60)
+	zip_code = models.IntegerField()

@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from main.models import Doctor, Prediction
+from main.models import Doctor, Prediction, UsersAddress
 
 # Create your views here.
 
@@ -41,9 +41,11 @@ def login_view(request):
         email = request.data['username']
         password = request.data['password']
         username_exists = User.objects.filter(email=email).exists()
+        print(username_exists)
         status = 'Invalid Username'
         if username_exists:
             user = authenticate(request, username=email, password=password)
+            print(user)
             if user is not None:
                 login(request, user)
                 # payload = jwt_payload_handler(user)
@@ -64,7 +66,7 @@ def login_view(request):
                 }
         return response
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def predict_view(request):
     response = Response({'flash': False, 'message': 'Invalid request'})
     if request.method == 'POST':
@@ -98,6 +100,51 @@ def predict_view(request):
         prediction.save()
         response = Response({'flash': True, 'message': 'Prediction added successfully'})
     return response
+
+@api_view(['GET'])
+def user_details_view(request):
+    response = Response({'flash': False, 'message': 'Invalid request'})
+    if request.method == 'GET':
+        user_id = request.session['user_id']
+        user = User.objects.get(id=user_id)
+        address = UsersAddress.objects.filter(user_id=user).last()
+        response = Response({
+            'flash': True,
+            'message': 'Success',
+            'data': {
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email,
+                'username': user.username,
+                'address': address
+            }
+        })
+        return response
+    elif request.method == 'PUT':
+        user_id = request.session['user_id']
+        user = User.objects.get(id=user_id)
+        user.first_name = request.data['first_name']
+        user.last_name = request.data['last_name']
+        user.email = request.data['email']
+        address = UsersAddress.objects.filter(user_id=user).last()
+        if address is not None:
+            address.address = request.data['address']
+            address.city = request.data['city']
+            address.state = request.data['state']
+            address.zipcode = request.data['zipcode']
+            address.save()
+        else:
+            address = UsersAddress.objects.create(
+                user_id=user,
+                address=request.data['address'],
+                city=request.data['city'],
+                state=request.data['state'],
+                zipcode=request.data['zipcode']
+            )
+            address.save()
+        response = Response({'flash': True, 'message': 'User details updated successfully'})
+    return response
+
 
 
 @api_view(['POST', 'PUT'])
