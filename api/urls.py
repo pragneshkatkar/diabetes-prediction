@@ -24,4 +24,5 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('predict/', predict_view, name='predict'),
     path('add-doctor/', doctor_view, name='add-doctor'),
+    path('my-profile/', user_details_view, name='my-profile'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

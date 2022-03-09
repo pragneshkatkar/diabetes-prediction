@@ -34,4 +34,5 @@ class UsersAddress(models.Model):
 	address = models.CharField(max_length=60)
 	city = models.CharField(max_length=60)
 	state = models.CharField(max_length=60)
-	zip_code = models.IntegerField()
+	country = models.CharField(max_length=60)
+	zip_code = models.IntegerField(max_length=11)

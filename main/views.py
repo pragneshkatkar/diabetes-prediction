@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 
-from main.models import Prediction
+from main.models import Prediction, UsersAddress
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -76,9 +76,17 @@ def prediction_view(request):
     return render(request, 'dashboard/prediction.html', context)
 
 
+@login_required(login_url='/login/')
 def my_profile_view(request):
+    user_id = request.session['user_id']
+    user = User.objects.filter(id=user_id).values()[0]
+    address = UsersAddress.objects.filter(user_id=user_id).values()
+    if address:
+        address = address[0]
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'user': user,
+        'address': address
     }
     return render(request, 'my-profile.html', context)
     

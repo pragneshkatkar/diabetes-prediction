@@ -101,37 +101,24 @@ def predict_view(request):
         response = Response({'flash': True, 'message': 'Prediction added successfully'})
     return response
 
-@api_view(['GET'])
+@api_view(['PUT'])
 def user_details_view(request):
     response = Response({'flash': False, 'message': 'Invalid request'})
-    if request.method == 'GET':
-        user_id = request.session['user_id']
-        user = User.objects.get(id=user_id)
-        address = UsersAddress.objects.filter(user_id=user).last()
-        response = Response({
-            'flash': True,
-            'message': 'Success',
-            'data': {
-                'first_name': user.first_name,
-                'last_name': user.last_name,
-                'email': user.email,
-                'username': user.username,
-                'address': address
-            }
-        })
-        return response
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         user_id = request.session['user_id']
         user = User.objects.get(id=user_id)
         user.first_name = request.data['first_name']
         user.last_name = request.data['last_name']
         user.email = request.data['email']
+        user.save()
         address = UsersAddress.objects.filter(user_id=user).last()
+        print(request.data['zipcode'])
         if address is not None:
             address.address = request.data['address']
             address.city = request.data['city']
             address.state = request.data['state']
-            address.zipcode = request.data['zipcode']
+            address.country = request.data['country']
+            address.zip_code = request.data['zipcode']
             address.save()
         else:
             address = UsersAddress.objects.create(
@@ -139,7 +126,8 @@ def user_details_view(request):
                 address=request.data['address'],
                 city=request.data['city'],
                 state=request.data['state'],
-                zipcode=request.data['zipcode']
+                country=request.data['country'],
+                zip_code=request.data['zipcode']
             )
             address.save()
         response = Response({'flash': True, 'message': 'User details updated successfully'})

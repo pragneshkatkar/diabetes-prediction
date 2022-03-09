@@ -23,11 +23,11 @@ $('#signup-form').submit(event => {
     });
 })
 
-$('#profile-form').submit(event => {
+$('#my-profile-form').submit(event => {
     event.preventDefault();
     $.ajax({
         type: 'PUT',
-        url: '/api/signup/',
+        url: '/api/my-profile/',
         headers: {
             'X-CSRFToken': csrftoken,
         },
@@ -36,11 +36,15 @@ $('#profile-form').submit(event => {
             first_name: $('#first-name').val(),
             last_name: $('#last-name').val(),
             email: $('#email').val(),
-            password: $('#password').val(),
+            address: $('#address').val(),
+            city: $('#city').val(),
+            state: $('#state').val(),
+            country: $('#country').val(),
+            zipcode: $('#zipcode').val(),
         },
         success: (data) => {
             console.log(data);
-            window.location.href = '/login/';
+            window.location.href = '/my-profile/';
         },
         error: (err) => {
             console.log(err);
