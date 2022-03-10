@@ -54,10 +54,13 @@ def signup_view(request):
 
 @login_required(login_url='/login/')
 def dashboard_view(request):
-    predictions = Prediction.objects.all().values().order_by('-id')
+    user_id = request.session['user_id']
+    predictions = Prediction.objects.filter(user_id=user_id).values().order_by('-id')
+    user = User.objects.filter(id=user_id).values()[0]
     context = {
         'title': 'Home',
-        'predictions': predictions
+        'predictions': predictions,
+        'user': user
     }
     return render(request, 'dashboard/index.html', context)
 

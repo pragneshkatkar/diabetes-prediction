@@ -17,7 +17,7 @@ $('#predict-form').submit(event => {
 			age: $('#age').val()
         },
         success: (data) => {
-            if (data.status === 'Successful') {
+            if (data.flash === true) {
                 window.location.href = '/dashboard/';
             }
             else {
