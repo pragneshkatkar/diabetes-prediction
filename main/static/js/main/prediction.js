@@ -1,6 +1,5 @@
 $('#predict-form').submit(event => {
     event.preventDefault();
-    alert('ds')
     $.ajax({
         type: 'POST',
         url: '/api/predict/',
@@ -18,12 +17,12 @@ $('#predict-form').submit(event => {
 			age: $('#age').val()
         },
         success: (data) => {
-            // if (data.status === 'Successful') {
-            //     window.location.href = '/requirements/';
-            // }
-            // else {
-            //     alert('Username or Password is incorrect');
-            // }
+            if (data.status === 'Successful') {
+                window.location.href = '/dashboard/';
+            }
+            else {
+                alert('Something went wrong');
+            }
         },
         error: (err) => {
             console.log(err);
