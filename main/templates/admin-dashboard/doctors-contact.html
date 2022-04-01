@@ -16,28 +16,29 @@
 			</tr>
 		</thead>
 		<tbody>
+			{% for doctor in doctors %}
 			<tr>
 				<td>
 					<div class="form-check form-switch d-flex align-items-center justify-content-between mb-3">
-						<input class="form-check-input" type="checkbox" id="rememberMe"/>
+						<input class="form-check-input" type="checkbox" id="rememberMe" {% if docttor.is_active %}checked{% endif %}/>
 					</div>
 				</td>
 				<td>
 					<div class="d-flex px-2 py-1">
 						<div>
-							<h6 class="mb-0 text-sm">John Michael</h6>
-							<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+							<h6 class="mb-0 text-sm">{{ doctor.name }}</h6>
+							<p class="text-xs text-secondary mb-0">{{ doctor.email }}</p>
 						</div>
 					</div>
 				</td>
 				<td>
-					<p class="text-xs font-weight-bold mb-0">MBBS</p>
+					<p class="text-xs font-weight-bold mb-0">{{ doctor.degree }}</p>
 				</td>
 				<td class="align-middle text-center text-sm">
-					<p class="text-xs font-weight-bold mb-0">1234567890</p>
+					<p class="text-xs font-weight-bold mb-0">{{ doctor.contact_number }}</p>
 				</td>
 				<td class="align-middle">
-					<a href="edit/" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+					<a href="edit/{{ doctor.id }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
 						<button class="btn btn-info">Edit</button>
 					</a>
 				</td>
@@ -47,6 +48,7 @@
 					</a>
 				</td>
 			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

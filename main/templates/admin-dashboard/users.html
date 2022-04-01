@@ -8,32 +8,33 @@
 			<tr>
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
-				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact number</th>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">User type</th>
 				<th class="text-secondary opacity-7"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>
-					<div class="d-flex px-2 py-1">
-						<div>
-							<h6 class="mb-0 text-sm">John Michael</h6>
-							<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+			{% for user in users %}
+				<tr>
+					<td>
+						<div class="d-flex px-2 py-1">
+							<div>
+								<h6 class="mb-0 text-sm">{{ user.first_name }} {{ user.last_name }}</h6>
+							</div>
 						</div>
-					</div>
-				</td>
-				<td>
-					<p class="text-xs font-weight-bold mb-0">MBBS</p>
-				</td>
-				<td>
-					<p class="text-xs font-weight-bold mb-0">1234567890</p>
-				</td>
-				<td class="align-middle">
-					<!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> -->
-						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
-					<!-- </a> -->
-				</td>
-			</tr>
+					</td>
+					<td>
+						<p class="text-xs font-weight-bold mb-0">{{ user.email }}</p>
+					</td>
+					<td>
+						<p class="text-xs font-weight-bold mb-0">{% if user.is_superuser %}Admin{% else %}User{% endif %}</p>
+					</td>
+					<td class="align-middle">
+						<!-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"> -->
+							<!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button> -->
+						<!-- </a> -->
+					</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 </div>

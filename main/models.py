@@ -35,4 +35,8 @@ class UsersAddress(models.Model):
 	city = models.CharField(max_length=60)
 	state = models.CharField(max_length=60)
 	country = models.CharField(max_length=60)
-	zip_code = models.IntegerField(max_length=11)
+	zip_code = models.IntegerField()
+
+class Feedback(models.Model):
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+	feedback = models.TextField()

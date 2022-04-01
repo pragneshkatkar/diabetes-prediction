@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from main.models import Doctor, Prediction, UsersAddress
+from main.models import Doctor, Feedback, Prediction, UsersAddress
 
 # Create your views here.
 
@@ -145,6 +145,7 @@ def doctor_view(request):
         doctor = Doctor()
         doctor.name = request.data['name']
         doctor.email = request.data['email']
+        doctor.degree = request.data['degree']
         doctor.contact_number = request.data['contact_number']
         doctor.is_active = request.data['is_active'] == "on"
         doctor.save()
@@ -158,3 +159,15 @@ def doctor_view(request):
         doctor.is_active = request.data['is_active']
         doctor.save()
         return Response()
+        
+        
+
+@api_view(['POST', 'GET'])
+def feedback_view(request):
+    user_id = request.session['user_id']
+    if request.method == 'POST':
+        feedback = Feedback()
+        feedback.user_id = request.user
+        feedback.feedback = request.data['feedback']
+        feedback.save()
+    return Response()

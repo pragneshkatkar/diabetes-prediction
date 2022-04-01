@@ -3,8 +3,9 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
-from main.models import Prediction, UsersAddress
+from main.models import Doctor, Feedback, Prediction, UsersAddress
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -72,6 +73,15 @@ def predict_view(request):
     }
     return render(request, 'dashboard/predict.html', context)
 
+
+@login_required(login_url='/login/')
+def logout_view(request):
+    logout(request)
+    context = {
+        'title': 'Home'
+    }
+    return render(request, 'login.html', context)
+
 def prediction_view(request):
     context = {
         'title': 'Home'
@@ -94,9 +104,12 @@ def my_profile_view(request):
     return render(request, 'my-profile.html', context)
     
 
+@login_required(login_url='/login/')
 def doctors_contacts(request):
+    doctors = Doctor.objects.all().values()
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'doctors': doctors
     }
     return render(request, 'admin-dashboard/doctors-contact.html', context)
 
@@ -108,6 +121,19 @@ def doctors_contacts_add(request):
     return render(request, 'admin-dashboard/add-doctor.html', context)
 
 
+@login_required(login_url='/login/')
+def feedback_view(request):
+    user_id= request.session['user_id']
+    user = User.objects.filter(id=user_id).values()[0]
+    feedback = Feedback.objects.filter(user_id=user_id)
+    if user['is_superuser']:
+        feedback = Feedback.objects.all()
+    context = {
+        'title':  'Feedback',
+        'feedbacks': feedback
+    }
+    return render(request, 'dashboard/feedback.html', context)
+
 def users_predictions(request):
     context = {
         'title': 'Home'
@@ -116,7 +142,12 @@ def users_predictions(request):
 
 
 def users(request):
+    user_id = request.session['user_id']
+    user = User.objects.filter(id=user_id).values()[0]
+    if user['is_superuser']:
+        users = User.objects.all()
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'users': users
     }
     return render(request, 'admin-dashboard/users.html', context)
