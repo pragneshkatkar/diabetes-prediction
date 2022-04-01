@@ -3,6 +3,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+import pickle
+import pandas as pd
+
+model = pickle.load(open("D:\Projects\diabities-prediction\diabetes-prediction\Diabetes.pkl", "rb"))
 
 from main.models import Doctor, Feedback, Prediction, UsersAddress
 
@@ -79,8 +83,17 @@ def predict_view(request):
         skin_thickness = request.data['skin_thickness']
         insulin = request.data['insulin']
         bmi = request.data['bmi']
+        diabetes_pedigree_function = request.data['diabetes_pedigree_function']
         age = request.data['age']
-        # prediction
+        row_df = pd.DataFrame([pd.Series([no_of_pregnancies,glucose,blood_pressure,skin_thickness,insulin,bmi,diabetes_pedigree_function,age])])
+        prediction=model.predict_proba(row_df)
+        output='{0:.{1}f}'.format(prediction[0][1], 2)
+        output = str(float(output)*100)+'%'
+        # if output>str(0.5):
+        #     return render_template('result.html',pred=f'You have chance of having diabetes.\nProbability of having Diabetes is {output}')
+        # else:
+        #     return render_template('result.html',pred=f'You are safe.\n Probability of having diabetes is {output}')
+        # # prediction
         prediction = Prediction.objects.create(
             user_id=user,
             name=name,
@@ -91,11 +104,11 @@ def predict_view(request):
             insulin=insulin,
             bmi=bmi,
             age=age,
-            model1_prediction=False,
-            model2_prediction=False,
-            model3_prediction=False,
-            model4_prediction=False,
-            result=False
+            model1_prediction=str(output),
+            # model2_prediction=False,
+            # model3_prediction=False,
+            # model4_prediction=False,
+            result=str(output)
         )
         prediction.save()
         response = Response({'flash': True, 'message': 'Prediction added successfully'})

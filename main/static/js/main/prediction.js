@@ -14,6 +14,7 @@ $('#predict-form').submit(event => {
 			skin_thickness: $('#skin_thickness').val(),
 			insulin: $('#insulin').val(),
 			bmi: $('#bmi').val(),
+            diabetes_pedigree_function: $('#diabetes-pedigree-function').val(),
 			age: $('#age').val()
         },
         success: (data) => {
