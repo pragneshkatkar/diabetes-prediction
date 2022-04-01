@@ -11,7 +11,7 @@
 				<div class="col-lg-6">
 					<label>Name</label>
 					<div class="mb-3">
-						<input type="text" id="name" class="form-control" placeholder="Name" aria-label="Email" aria-describedby="email-addon">
+						<input type="text" id="name" class="form-control" placeholder="Name" aria-label="Email" aria-describedby="email-addon" value={{request.user.first_name}}>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -53,7 +53,7 @@
 				<div class="col-lg-6">
 					<label>Diabetes pedigree function</label>
 					<div class="mb-3">
-						<input type="text" class="form-control" placeholder="Diabetes pedigree function" aria-label="Diabetes predigree function" aria-describedby="email-addon">
+						<input type="text" id="diabetes-pedigree-function" class="form-control" placeholder="Diabetes pedigree function" aria-label="Diabetes predigree function" aria-describedby="email-addon">
 					</div>
 				</div>
 				<div class="col-lg-6">

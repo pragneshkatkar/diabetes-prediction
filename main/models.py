@@ -14,11 +14,11 @@ class Prediction(models.Model):
 	insulin = models.DecimalField(max_digits=5, decimal_places=2)
 	bmi = models.DecimalField(max_digits=5, decimal_places=2)
 	age = models.IntegerField()
-	model1_prediction = models.BooleanField()
-	model2_prediction = models.BooleanField()
-	model3_prediction = models.BooleanField()
-	model4_prediction = models.BooleanField()
-	result = models.BooleanField()
+	model1_prediction = models.CharField(max_length=10, default='0%')
+	model2_prediction = models.CharField(max_length=10, default='0%')
+	model3_prediction = models.CharField(max_length=10, default='0%')
+	model4_prediction = models.CharField(max_length=10, default='0%')
+	result = models.CharField(max_length=10, default='0%') 
 	created_at = models.DateTimeField(auto_now_add=True)
 	
 class Doctor(models.Model):
