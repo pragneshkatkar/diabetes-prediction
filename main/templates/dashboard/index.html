@@ -9,6 +9,7 @@
 	<table class="table align-items-center mb-0">
 		<thead>
 			<tr>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tested on</th>
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No. of<br/>Pregnancies</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Glucose</th>
@@ -16,6 +17,7 @@
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Skin thickness</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Insulin</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BMI</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Diabetes pedigree</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Age</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result</th>
 				<th class="text-secondary opacity-7"></th>
@@ -24,6 +26,9 @@
 		<tbody>
 			{% for prediction in predictions %}
 			<tr>
+				<td>
+					<p class="text-xs text-secondary mb-0">{{ prediction.created_at }}</p>
+				</td>
 				<td>
 					<div class="d-flex px-2 py-1">
 						<h6 class="mb-0 text-sm">{{ prediction.name }}</h6>
@@ -46,6 +51,9 @@
 				</td>
 				<td class="align-middle text-center">
 					<p class="text-xs text-secondary mb-0">{{ prediction.bmi }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.diabetes_pedigree_function }}</p>
 				</td>
 				<td class="align-middle text-center">
 					<p class="text-xs text-secondary mb-0">{{ prediction.age }}</p>

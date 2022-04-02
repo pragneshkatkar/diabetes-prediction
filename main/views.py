@@ -69,7 +69,7 @@ def dashboard_view(request):
 @login_required(login_url='/login/')
 def predict_view(request):
     context = {
-        'title': 'Home'
+        'title': 'Home',
     }
     return render(request, 'dashboard/predict.html', context)
 
@@ -82,9 +82,11 @@ def logout_view(request):
     }
     return render(request, 'login.html', context)
 
-def prediction_view(request):
+def prediction_view(request, id):
+    prediction = Prediction.objects.filter(id=id).values()[0]
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'prediction': prediction
     }
     return render(request, 'dashboard/prediction.html', context)
 

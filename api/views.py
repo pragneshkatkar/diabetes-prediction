@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import pickle
 import pandas as pd
 
-model = pickle.load(open("D:\Projects\diabities-prediction\diabetes-prediction\Diabetes.pkl", "rb"))
+model = pickle.load(open("C:/Users/qcc/diabetes-preidction/diabetes-prediction/Diabetes.pkl", "rb"))
 
 from main.models import Doctor, Feedback, Prediction, UsersAddress
 
@@ -103,6 +103,7 @@ def predict_view(request):
             skin_thickness=skin_thickness,
             insulin=insulin,
             bmi=bmi,
+            diabetes_pedigree_function=diabetes_pedigree_function,
             age=age,
             model1_prediction=str(output),
             # model2_prediction=False,
