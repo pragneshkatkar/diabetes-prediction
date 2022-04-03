@@ -1,0 +1,71 @@
+{% extends 'dashboard/sidebar.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+
+<div class="card">
+	<table class="table align-items-center mb-0">
+		<thead>
+			<tr>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tested on</th>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No. of<br/>Pregnancies</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Glucose</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BP</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Skin thickness</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Insulin</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">BMI</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Diabetes pedigree</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Age</th>
+				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Result</th>
+				<th class="text-secondary opacity-7"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for prediction in predictions %}
+			<tr>
+				<td>
+					<p class="text-xs text-secondary mb-0">{{ prediction.created_at }}</p>
+				</td>
+				<td>
+					<div class="d-flex px-2 py-1">
+						<h6 class="mb-0 text-sm">{{ prediction.name }}</h6>
+					</div>
+				</td>
+				<td>
+					<p class="text-xs text-secondary mb-0">{{ prediction.number_of_pregnancies }}</p>
+				</td>
+				<td class="align-middle text-center text-sm">
+					<p class="text-xs text-secondary mb-0">{{ prediction.glucose }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.blood_pressure }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.skin_thickness }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.insulin }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.bmi }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.diabetes_pedigree_function }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="text-xs text-secondary mb-0">{{ prediction.age }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<p class="{% if prediction.result %}text-danger{% else %}text-success{% endif %} mb-0">{{ prediction.result }}</p>
+				</td>
+				<td class="align-middle text-center">
+					<a href="/dashboard/prediction/{{ prediction.id }}"><button class="btn btn-info">Details</button></a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+{% endblock dashboard_content %}

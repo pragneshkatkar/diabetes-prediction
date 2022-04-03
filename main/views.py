@@ -136,14 +136,19 @@ def feedback_view(request):
     }
     return render(request, 'dashboard/feedback.html', context)
 
-def users_predictions(request):
+def users_predictions_view(request):
+    user_id = request.session['user_id']
+    user = User.objects.filter(id=user_id).values()[0]
+    if user['is_superuser']:
+        predictions = Prediction.objects.all()
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'predictions': predictions
     }
     return render(request, 'admin-dashboard/users-predictions.html', context)
 
 
-def users(request):
+def users_view(request):
     user_id = request.session['user_id']
     user = User.objects.filter(id=user_id).values()[0]
     if user['is_superuser']:
