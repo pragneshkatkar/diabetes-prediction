@@ -13,6 +13,7 @@ class Prediction(models.Model):
 	skin_thickness = models.DecimalField(max_digits=5, decimal_places=2)
 	insulin = models.DecimalField(max_digits=5, decimal_places=2)
 	bmi = models.DecimalField(max_digits=5, decimal_places=2)
+	diabetes_pedigree_function = models.DecimalField(max_digits=5, decimal_places=2)
 	age = models.IntegerField()
 	model1_prediction = models.CharField(max_length=10, default='0%')
 	model2_prediction = models.CharField(max_length=10, default='0%')

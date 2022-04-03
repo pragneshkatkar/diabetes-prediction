@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h4>Diabetes detection result</h4>
-		<p class="text-danger">Outcome - Class variable (0 or 1) class value 1 is interpreted as "tested positive for diabetes"</p>
+		<p class="text-danger">Outcome - Model1 is saying taht you have {{ prediction.model1_prediction }} chances of having diabetes</p>
 	</div>
 </div>
 <div class="row">
@@ -112,31 +112,35 @@
 			<h5>Your inputs</h5>
 			<p>
 				<span>No. of pregnancies:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.no_of_pregnancies }}</span>
 			</p>
 			<p>
 				<span>Glucose:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.glucose }}</span>
 			</p>
 			<p>
 				<span>Blood pressure:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.blood_pressure }}</span>
 			</p>
 			<p>
 				<span>Skin thickness:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.skin_thickness }}</span>
 			</p>
 			<p>
 				<span>Insulin:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.insulin }}</span>
+			</p>
+			<p>
+				<span>Diabetes pedigree function:&nbsp;</span>
+				<span>{{ prediction.diabetes_pedigree_function }}</span>
 			</p>
 			<p>
 				<span>BMI:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.bmi }}</span>
 			</p>
 			<p>
 				<span>Age:&nbsp;</span>
-				<span>0</span>
+				<span>{{ prediction.age }}</span>
 			</p>
 		</div>
 	</div>
