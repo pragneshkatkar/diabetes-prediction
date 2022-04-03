@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import pickle
 import pandas as pd
 
-model = pickle.load(open("C:/Users/qcc/diabetes-preidction/diabetes-prediction/Diabetes.pkl", "rb"))
+model = pickle.load(open("C:/Users/pragn/diabetes_prediction/Diabetes.pkl", "rb"))
 
 from main.models import Doctor, Feedback, Prediction, UsersAddress
 
@@ -112,7 +112,7 @@ def predict_view(request):
             result=str(output)
         )
         prediction.save()
-        response = Response({'flash': True, 'message': 'Prediction added successfully'})
+        response = Response({'flash': True, 'message': 'Prediction added successfully', 'prediction_id': prediction.id})
     return response
 
 @api_view(['PUT'])

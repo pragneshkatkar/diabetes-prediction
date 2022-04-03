@@ -19,7 +19,7 @@ $('#predict-form').submit(event => {
         },
         success: (data) => {
             if (data.flash === true) {
-                window.location.href = '/dashboard/';
+                window.location.href = '/dashboard/prediction/' + data.prediction_id;
             }
             else {
                 alert('Something went wrong');
