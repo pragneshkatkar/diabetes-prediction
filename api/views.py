@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import pickle
 import pandas as pd
 
-model = pickle.load(open("D:\Projects\diabities-prediction\diabetes-prediction\Diabetes.pkl", "rb"))
+model = pickle.load(open("C:\Users\pragn\diabetes_prediction\Diabetes.pkl", "rb"))
 
 from main.models import Doctor, Feedback, Prediction, UsersAddress
 
