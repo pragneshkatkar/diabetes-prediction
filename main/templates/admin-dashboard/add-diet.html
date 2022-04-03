@@ -1,0 +1,45 @@
+{% extends 'dashboard/sidebar.html' %}
+{% load static %}
+
+{% block dashboard_content %}
+
+<div class="card">
+	<a href="admin/doctors-contact/">
+		<button class="btn btn-link d-flex align-items-center">
+			<i class="fa fa-arrow-left text-sm"></i>
+			<a class="mx-2 text-sm">Back</a>
+		</button>
+	</a>
+	<div class="card-body">
+		<h4>{% if '/edit/' in request.path %}Edit{% else %}Add{% endif %} diet blog post</h4>
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="{% if diet is not None %}edit{% else %}add{% endif %}-diet-form">
+					{% if diet is not None %}
+					<input type="hidden" id="diet_id" value="{{ diet.id }}"/>
+					{% endif %}
+					<label>Heading</label>
+					<div class="mb-3">
+						<input id="heading" type="text" class="form-control" placeholder="Heading" aria-label="Heading" aria-describedby="email-addon" value="{{ diet.heading }}">
+					</div>
+					<label>Description</label>
+					<div class="mb-3">
+						<textarea id="description" type="text" class="form-control" placeholder="Description" aria-label="Description" aria-describedby="email-addon">{{ diet.description }}</textarea>
+					</div>
+					<div class="form-check form-switch d-flex align-items-center mb-3">
+						<input id="is_active" class="form-check-input" type="checkbox" id="rememberMe"/>
+						<label class="form-check-label mb-0 ms-2" for="rememberMe">Active</label>
+					</div>
+					<div class="mb-3">
+						<button type="submit" class="btn btn-primary">{% if diet is not None %}Update{% else %}Add{% endif %}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock dashboard_content %}
+{% block js_files %}
+<script src="{% static '/js/main/dietblog.js' %}"></script>
+{% endblock js_files %}

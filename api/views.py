@@ -8,7 +8,7 @@ import pandas as pd
 
 model = pickle.load(open("C:/Users/pragn/diabetes_prediction/Diabetes.pkl", "rb"))
 
-from main.models import Doctor, Feedback, Prediction, UsersAddress
+from main.models import DietBlog, Doctor, Feedback, Prediction, UsersAddress
 
 # Create your views here.
 
@@ -149,7 +149,7 @@ def user_details_view(request):
 
 
 
-@api_view(['POST', 'PUT'])
+@api_view(['POST', 'PUT', 'DELETE'])
 def doctor_view(request):
     if request.method == 'POST':
 		# email = request.data['email']
@@ -173,6 +173,10 @@ def doctor_view(request):
         doctor.is_active = request.data['is_active']
         doctor.save()
         return Response()
+    elif request.method == 'DELETE':
+        doctor = Doctor.objects.get(id=request.data['doctor_id'])
+        doctor.delete()
+        return Response({'flash': True, 'message': 'Doctor deleted successfully'})
         
         
 
@@ -185,3 +189,40 @@ def feedback_view(request):
         feedback.feedback = request.data['feedback']
         feedback.save()
     return Response()
+    
+
+@api_view(['GET', 'POST', 'DELETE', 'PUT'])
+def diet(request):
+    if request.method == 'POST':
+        response = Response({'flash': False, 'message': 'Invalid request'})
+        heading = request.data['heading']
+        print(heading)
+        description = request.data['description']
+        diet = DietBlog()
+        diet.heading = heading
+        diet.description = description
+        diet.save()
+        response = Response({'flash': True, 'message': 'Diet added successfully'})
+        return response
+    elif request.method == 'PUT':
+        response = Response({'flash': False, 'message': 'Invalid request'})
+        diet = DietBlog.objects.get(id=request.data['diet_id'])
+        diet.heading = request.data['heading']
+        diet.description = request.data['description']
+        diet.save()
+        response = Response({'flash': True, 'message': 'Diet updated successfully'})
+        return response
+    elif request.method == 'DELETE':
+        response = Response({'flash': False, 'message': 'Invalid request'})
+        diet = DietBlog.objects.get(id=request.data['diet_id'])
+        diet.delete()
+        response = Response({'flash': True, 'message': 'Diet deleted successfully'})
+        return response
+    elif request.method == 'PUT':
+        response = Response({'flash': False, 'message': 'Invalid request'})
+        diet = DietBlog.objects.get(id=request.data['diet_id'])
+        diet.heading = request.data['heading']
+        diet.description = request.data['description']
+        diet.save()
+        response = Response({'flash': True, 'message': 'Diet updated successfully'})
+        return response

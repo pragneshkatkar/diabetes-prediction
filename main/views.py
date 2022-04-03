@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
-from main.models import Doctor, Feedback, Prediction, UsersAddress
+from main.models import DietBlog, Doctor, Feedback, Prediction, UsersAddress
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -80,7 +80,7 @@ def logout_view(request):
     context = {
         'title': 'Home'
     }
-    return render(request, 'login.html', context)
+    return redirect('/login/')
 
 def prediction_view(request, id):
     prediction = Prediction.objects.filter(id=id).values()[0]
@@ -136,14 +136,19 @@ def feedback_view(request):
     }
     return render(request, 'dashboard/feedback.html', context)
 
-def users_predictions(request):
+def users_predictions_view(request):
+    user_id = request.session['user_id']
+    user = User.objects.filter(id=user_id).values()[0]
+    if user['is_superuser']:
+        predictions = Prediction.objects.all().order_by('-id')
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'predictions': predictions
     }
     return render(request, 'admin-dashboard/users-predictions.html', context)
 
 
-def users(request):
+def users_view(request):
     user_id = request.session['user_id']
     user = User.objects.filter(id=user_id).values()[0]
     if user['is_superuser']:
@@ -153,3 +158,28 @@ def users(request):
         'users': users
     }
     return render(request, 'admin-dashboard/users.html', context)
+
+def diets_view(request, id=None):
+    diets = DietBlog.objects.all().values()
+    if id is not None:
+        diet = DietBlog.objects.filter(id=id).values()[0]
+        context = {
+            'title': 'Home',
+            'diet': diet,
+            'user': request.user
+        }
+        return render(request, 'admin-dashboard/add-diet.html', context)
+    context = {
+        'title': 'Home',
+        'diets': diets,
+        'user': request.user
+    }
+    return render(request, 'dashboard/diets.html', context)
+
+def add_diet_view(request):
+    context = {
+        'title': 'Home',
+    }
+    if request.user.is_superuser:
+        return render(request, 'admin-dashboard/add-diet.html', context)
+    return redirect('/diets/')

@@ -26,4 +26,5 @@ urlpatterns = [
     path('add-doctor/', doctor_view, name='add-doctor'),
     path('my-profile/', user_details_view, name='my-profile'),
     path('feedback/', feedback_view, name='feedback'),
+    path('diet/', diet, name="diet"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

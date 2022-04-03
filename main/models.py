@@ -41,3 +41,8 @@ class UsersAddress(models.Model):
 class Feedback(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	feedback = models.TextField()
+
+class DietBlog(models.Model):
+	heading = models.CharField(max_length=60)
+	description = models.TextField()
+	created_at = models.DateTimeField(auto_now_add=True)

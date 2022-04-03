@@ -75,6 +75,13 @@
 					<span class="nav-link-text ms-1">Feedback</span>
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if '/diets/' in request.path %} active {% endif %}" href="/diets/">
+					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+					</div>
+					<span class="nav-link-text ms-1">Diets</span>
+				</a>
+			</li>
 			{% if user.is_superuser %}
 			<li class="nav-item">
 				<a class="nav-link {% if request.path == '/users-predictions/' %} active {% endif %}" href="/admin/users-predictions/">
@@ -112,6 +119,9 @@
 			</ol>
 			<h6 class="font-weight-bolder mb-0">Dashboard</h6>
 		</nav>
+		{% if user.is_superuser %}
+		<p class="text-success text-xs text-bold">You are superadmin</p>
+		{% endif %}
 		<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 			<div class="ms-md-auto pe-md-3 d-flex align-items-center">
 			<div class="input-group">
