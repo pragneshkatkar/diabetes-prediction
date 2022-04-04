@@ -10,10 +10,15 @@ from main.models import DietBlog, Doctor, Feedback, Prediction, UsersAddress
 # Create your views here.
 @login_required(login_url='/login/')
 def index_view(request):
+    user_id = request.session['user_id']
+    predictions = Prediction.objects.filter(user_id=user_id).values().order_by('-id')
+    user = User.objects.filter(id=user_id).values()[0]
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'predictions': predictions,
+        'user': user
     }
-    return render(request, 'index.html', context)
+    return render(request, 'dashboard/index.html', context)
 
 
 def login_view(request):
