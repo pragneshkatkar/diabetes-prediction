@@ -3,13 +3,17 @@
 
 {% block dashboard_content %}
 
+{% if user.is_superuser %}
 <a href="add/"><button class="btn btn-primary">Add new doctor contact</button></a>
+{% endif %}
 
 <div class="card">
 	<table class="table align-items-center mb-0">
 		<thead>
 			<tr>
+				{% if user.is_superuser %}
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+				{% endif %}
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
 				<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Degree</th>
 				<th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact number</th>
@@ -19,11 +23,13 @@
 		<tbody>
 			{% for doctor in doctors %}
 			<tr>
+				{% if user.is_superuser %}
 				<td>
 					<div class="form-check form-switch d-flex align-items-center justify-content-between mb-3">
 						<input class="form-check-input" type="checkbox" id="rememberMe" {% if docttor.is_active %}checked{% endif %}/>
 					</div>
 				</td>
+				{% endif %}
 				<td>
 					<div class="d-flex px-2 py-1">
 						<div>
@@ -39,15 +45,19 @@
 					<p class="text-xs font-weight-bold mb-0">{{ doctor.contact_number }}</p>
 				</td>
 				<td class="align-middle">
+					{% if user.is_superuser %}
 					<a href="edit/{{ doctor.id }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
 						<button class="btn btn-info">Edit</button>
 					</a>
+					{% endif %}
 				</td>
 				<td class="align-middle">
+					{% if user.is_superuser %}
 					<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
 						<input form="delete-form-{{ doctor.id }}" type="hidden" value="{{ doctor.id }}"/>
 						<button class="btn btn-danger" onClick="deleteDoctor({{ doctor.id }})">Delete</button>
 					</a>
+					{% endif %}
 				</td>
 			</tr>
 			{% endfor %}

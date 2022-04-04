@@ -82,19 +82,19 @@
 					<span class="nav-link-text ms-1">Diets</span>
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if '/doctors-contacts/' in request.path %} active {% endif %}" href="/admin/doctors-contacts/">
+					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+					</div>
+					<span class="nav-link-text ms-1">Doctor's contact</span>
+				</a>
+			</li>
 			{% if user.is_superuser %}
 			<li class="nav-item">
 				<a class="nav-link {% if request.path == '/users-predictions/' %} active {% endif %}" href="/admin/users-predictions/">
 					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 					</div>
 					<span class="nav-link-text ms-1">Users predictions</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link {% if '/doctors-contacts/' in request.path %} active {% endif %}" href="/admin/doctors-contacts/">
-					<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-					</div>
-					<span class="nav-link-text ms-1">Doctor's contact</span>
 				</a>
 			</li>
 			<li class="nav-item">
