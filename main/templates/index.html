@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+<style>
+	html{
+		height:100%;
+	}
+	body{
+		height:100%;
+		background-image:url("{% static '/img/home/background.jpg' %}");
+		background-size:cover;
+		background-position:center;
+		background-repeat:no-repeat;
+		background-color:#FF0080;
+		background-blend-mode:screen;
+	}
+	.buttons{
+		margin-top:20px;
+	}
+	.buttons button{
+		margin:0px 10px;
+	}
+</style>
+
+<div class="h-100 d-flex align-items-center justify-content-center">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="text-center">Diabetes prediction</h1>
+				<div class="buttons d-flex align-items-center justify-content-center">
+					<a href="/login/"><button class="btn btn-primary">Login</button></a>
+					<a href="/signup/"><button class="btn btn-light">Signup</button></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock main_content %}
