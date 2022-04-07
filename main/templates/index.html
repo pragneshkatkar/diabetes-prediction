@@ -29,9 +29,14 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="text-center">Diabetes prediction</h1>
+				<h3 class="text-center">To predict about your please go to your account</h3>
 				<div class="buttons d-flex align-items-center justify-content-center">
+					{% if user is not None %}
+					<a href="/dashboard/predict"><button class="btn btn-primary">New prediction</button></a>
+					{% else %}
 					<a href="/login/"><button class="btn btn-primary">Login</button></a>
 					<a href="/signup/"><button class="btn btn-light">Signup</button></a>
+					{% endif %}
 				</div>
 			</div>
 		</div>

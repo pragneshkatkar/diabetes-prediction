@@ -15,7 +15,7 @@ def index_view(request):
     context = {
         'title': 'Home',
         # 'predictions': predictions,
-        # 'user': user
+        'user': request.user if request.user else None
     }
     return render(request, 'index.html', context)
 
